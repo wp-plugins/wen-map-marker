@@ -51,7 +51,8 @@ Nice, make a post on the [Support Forum](http://wordpress.org/support/plugin/wen
 
 == Screenshots ==
 
-1. Settings page
+1. Plugin settings
+2. Map meta box
 
 == Changelog ==
 
