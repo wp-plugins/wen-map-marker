@@ -63,7 +63,7 @@ class WEN_Map_Marker_Admin {
 
 		$screen = get_current_screen();
 		$wen_map_marker_settings = get_option('wen_map_marker_settings');
-		$wen_map_marker_settings['post_types'][] = 'toplevel_page_wen-map-marker';
+		$wen_map_marker_settings['post_types'][] = 'wen-addons_page_wen-map-marker';
 
 		if(!isset($wen_map_marker_settings['post_types']) || empty( $wen_map_marker_settings['post_types'] ))
 			return;
@@ -84,7 +84,7 @@ class WEN_Map_Marker_Admin {
 
 		$screen = get_current_screen();
 		$wen_map_marker_settings = get_option('wen_map_marker_settings');
-		$wen_map_marker_settings['post_types'][] = 'toplevel_page_wen-map-marker';
+		$wen_map_marker_settings['post_types'][] = 'wen-addons_page_wen-map-marker';
 
 		if(!isset($wen_map_marker_settings['post_types']) || empty( $wen_map_marker_settings['post_types'] ))
 			return;
@@ -137,11 +137,17 @@ class WEN_Map_Marker_Admin {
 	    </div>
 	    <p>
 			<label for="wen_map_marker_content_append"><strong><?php _e( 'Show Map', 'wen-map-marker' ); ?></strong></label>
-			<?php $wen_map_marker_content_append = $this->get_custom_field_value("wen_map_marker_content_append");?>
+			<?php
+			$wen_map_marker_content_append = $this->get_custom_field_value("wen_map_marker_content_append");
+			if ( false === $wen_map_marker_content_append ) {
+				// Set default
+				$wen_map_marker_content_append = 'after_content';
+			}
+			?>
 			<select name="wen_map_marker_content_append" id="wen_map_marker_content_append">
 				<option value="after_content" <?php selected('after_content',$wen_map_marker_content_append);?>><?php _e( 'After Content', 'wen-map-marker' ); ?></option>
 				<option value="before_content" <?php selected('before_content',$wen_map_marker_content_append);?>><?php _e( 'Before Content', 'wen-map-marker' ); ?></option>
-				<option value="" <?php selected('',$wen_map_marker_content_append);?>><?php _e( 'Do not append', 'wen-map-marker' ); ?></option>
+				<option value="do_not_append" <?php selected('do_not_append',$wen_map_marker_content_append);?>><?php _e( 'Do not append', 'wen-map-marker' ); ?></option>
 			</select>
 			<p><strong><?php echo _x( 'OR', 'Map Metabox', 'wen-map-marker' ); ?></strong></p>
 			<p class="description">
@@ -217,7 +223,7 @@ class WEN_Map_Marker_Admin {
 		if ( isset( $wen_map_marker_settings['post_types'] ) ) {
 			$post_types = (array)$wen_map_marker_settings['post_types'];
 		}
-		$post_types[] = 'toplevel_page_wen-map-marker';
+		$post_types[] = 'wen-addons_page_wen-map-marker';
 
 		if ( ! in_array( $screen->id, $post_types ) ) {
 			return;
@@ -280,8 +286,12 @@ class WEN_Map_Marker_Admin {
 	}
 
 	function setup_menu(){
+		if( class_exists('WEN_Addons') ){
+	    add_submenu_page( WEN_Addons::$menu_name, __('WEN Map Marker',"wen-map-marker"), __('WEN Map Marker',"wen-map-marker"), 'manage_options', 'wen-map-marker', array(&$this,'option_page_init') );
+		}else{
 	    add_menu_page( __('WEN Map Marker',"wen-map-marker"), __('WEN Map Marker',"wen-map-marker"), 'manage_options', 'wen-map-marker', array(&$this,'option_page_init') );
-	    add_action( 'admin_init', array(&$this,'register_settings' ));
+		}
+    add_action( 'admin_init', array(&$this,'register_settings' ));
 	}
 
 	function option_page_init(){
@@ -319,14 +329,14 @@ class WEN_Map_Marker_Admin {
 	 */
 	function checkbox_field_render()
 	{
-		$post_types = get_post_types(array(   'public'   => true ));
+		$post_types = get_post_types(array(   'public'   => true ) , 'objects' );
         $wen_map_marker_settings = get_option('wen_map_marker_settings');
 		foreach ($post_types as $key => $post_type) {
             if('attachment' != $key){
                 $checked = ( isset($wen_map_marker_settings['post_types']) and is_array($wen_map_marker_settings['post_types']) and in_array($key,$wen_map_marker_settings['post_types']))?"checked='checked'":"";
                 echo '<label for="post_type_'.$key.'">
                         <input name="wen_map_marker_settings[post_types][]" type="checkbox" '.$checked.' value="'.$key.'" id="post_type_'.$key.'"  />
-                        <span>'.ucfirst($post_type).'</span></label><br />';
+                        <span>'.esc_html($post_type->labels->singular_name).' <em>('.$key.')</em></span></label><br />';
             }
         }
 
@@ -339,7 +349,10 @@ class WEN_Map_Marker_Admin {
 	 */
 	function plugin_settings_link($links)
 	{
-		$settings_link = '<a href="admin.php?page=wen-map-marker">'.__('Settings',"wen-map-marker").'</a>';
+		$settings_url = add_query_arg( array(
+		    'page' => 'wen-map-marker',
+		    ), admin_url( 'admin.php' ) );
+		$settings_link = '<a href="' . esc_url( $settings_url ) . '">'.__('Settings',"wen-map-marker").'</a>';
 		array_unshift($links, $settings_link);
 		return $links;
 	}
@@ -362,19 +375,49 @@ class WEN_Map_Marker_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	function register_tinymce_button( $buttons ) {
+	// function register_tinymce_button( $buttons ) {
 
-		$screen = get_current_screen();
-		$wen_map_marker_settings = get_option('wen_map_marker_settings');
+	// 	$screen = get_current_screen();
+	// 	$wen_map_marker_settings = get_option('wen_map_marker_settings');
 
-		if(!isset($wen_map_marker_settings['post_types']) || empty( $wen_map_marker_settings['post_types'] ))
-			return;
+	// 	if(!isset($wen_map_marker_settings['post_types']) || empty( $wen_map_marker_settings['post_types'] ))
+	// 		return;
 
-		if( is_array($wen_map_marker_settings['post_types']) and !in_array($screen->id,$wen_map_marker_settings['post_types']))
-			return $buttons;
+	// 	if( is_array($wen_map_marker_settings['post_types']) and !in_array($screen->id,$wen_map_marker_settings['post_types']))
+	// 		return $buttons;
 
-		array_push( $buttons, '|', 'WEN' );
-			return $buttons;
+	// 	array_push( $buttons, '|', 'WEN' );
+	// 		return $buttons;
+
+	// }
+
+	function tinymce_button(){
+
+		if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
+		     add_filter( 'mce_buttons', array($this,'register_tinymce_button' ) );
+		     add_filter( 'mce_external_plugins', array($this,'add_tinymce_button' ) );
+		}
+
+	}
+
+	function register_tinymce_button( $buttons ){
+
+		array_push( $buttons, 'wen_map_marker' );
+		return $buttons;
+
+	}
+
+	function add_tinymce_button( $plugin_array ){
+
+		$plugin_array['wen_map_marker'] = plugin_dir_url( __FILE__ ) . '../admin/js/wen-map-marker-tinymce-plugin.js';
+		return $plugin_array;
+
+	}
+
+	function tinymce_external_language( $locales ){
+
+		$locales ['wen-map-marker'] =  WEN_MAP_MARKER_DIR . '/admin/partials/wen-map-marker-tinymce-plugin-langs.php';
+    return $locales;
 
 	}
 
@@ -383,7 +426,7 @@ class WEN_Map_Marker_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	function add_tinymce_button( $initArray )
+	function add_tinymce_button_temp( $initArray )
 	{
 		$icon_path = plugin_dir_url( __FILE__ ) . 'images/map_button.png';
 		$title = __("Add WEN Map Marker Shortcode","wen-map-marker");
@@ -397,7 +440,7 @@ class WEN_Map_Marker_Admin {
      W = W - 80;
      H = H - 84;
      tb_show( '$title', '#TB_inline?width=' + W + '&height=' + H + '&inlineId=WMM-popup-form' );*/
-	
+
 	var shortcode = '[WMM';
 	shortcode += ']';
 	// inserts the shortcode into the active editor

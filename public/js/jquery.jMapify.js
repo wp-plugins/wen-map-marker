@@ -249,6 +249,44 @@
                       }
                   });
               }
+
+              // Check zoom level
+              google.maps.event.addListener(jMapify.map,'zoom_changed', function ()
+              {
+                  var markerPositon = jMapify.marker.getPosition();
+                  if( markerPositon !== undefined ){
+
+                    var newCenter1 = jMapify.marker.getPosition();
+                    var latlng = new google.maps.LatLng(newCenter1.lat(), newCenter1.lng() );
+                    var geocoder = new google.maps.Geocoder();
+
+                    geocoder.geocode({
+                        'latLng': latlng
+                    }, function(results, status) {
+                        // validate
+                        if (status != google.maps.GeocoderStatus.OK) {
+                            console.log('Geocoder failed due to: ' + status);
+                            return;
+                        }
+                        if (!results[0]) {
+                            console.log('No results found');
+                            return;
+                        }
+                        jMapify.marker.setPosition(latlng);
+                        $formatted_address = results[0].formatted_address;
+                        
+                        args.settings.afterMarkerDrag.apply(jMapify, [{
+                            "lat": newCenter1.lat(),
+                            "lng": newCenter1.lng(),
+                            "address": $formatted_address,
+                            "zoom" : jMapify.map.getZoom()
+                        }]);
+                        jMapify.map.setCenter(latlng);
+                    });
+
+                  }
+              });
+
           }
       },
       removeMarker: function(){

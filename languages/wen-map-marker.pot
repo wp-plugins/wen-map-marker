@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WEN Map Marker\n"
-"POT-Creation-Date: 2015-01-09 17:46+0530\n"
-"PO-Revision-Date: 2015-01-09 17:46+0530\n"
+"POT-Creation-Date: 2015-01-23 11:50+0530\n"
+"PO-Revision-Date: 2015-01-23 11:50+0530\n"
 "Last-Translator: WEN Themes <info@wenthemes.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -18,7 +18,9 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../../wen-map-marker\n"
 
 #: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:111
-#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:283
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:284
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:286
+#: ../../wen-map-marker/admin/partials/wen-map-marker-tinymce-plugin-langs.php:12
 msgid "WEN Map Marker"
 msgstr ""
 
@@ -66,28 +68,20 @@ msgstr ""
 msgid "Use Shortcode %s in editor."
 msgstr ""
 
-#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:301
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:305
 msgid "Post Type Options"
 msgstr ""
 
-#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:308
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:312
 msgid "Select Post Types"
 msgstr ""
 
-#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:342
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:349
 msgid "Settings"
 msgstr ""
 
-#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:389
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:426
 msgid "Add WEN Map Marker Shortcode"
-msgstr ""
-
-#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:429
-msgid "Enter zoom"
-msgstr ""
-
-#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:433
-msgid "Insert"
 msgstr ""
 
 #: ../../wen-map-marker/admin/partials/wen-map-marker-admin-display.php:16
@@ -96,4 +90,33 @@ msgstr ""
 
 #: ../../wen-map-marker/admin/partials/wen-map-marker-admin-display.php:26
 msgid "Generate Custom Map Marker Shortcode"
+msgstr ""
+
+#: ../../wen-map-marker/wen-addons/wen_addons.php:56
+#: ../../wen-map-marker/wen-addons/wen_addons.php:118
+msgid "WEN Addons"
+msgstr ""
+
+#: ../../wen-map-marker/wen-addons/wen_addons.php:136
+msgid "Read more"
+msgstr ""
+
+#: ../../wen-map-marker/wen-addons/wen_addons.php:147
+msgid "Installed"
+msgstr ""
+
+#: ../../wen-map-marker/wen-addons/wen_addons.php:153
+msgid "Buy Now"
+msgstr ""
+
+#: ../../wen-map-marker/wen-addons/wen_addons.php:156
+msgid "Install now"
+msgstr ""
+
+#: ../../wen-map-marker/wen-addons/wen_addons.php:190
+msgid "Version"
+msgstr ""
+
+#: ../../wen-map-marker/wen-addons/wen_addons.php:196
+msgid "No addons available"
 msgstr ""

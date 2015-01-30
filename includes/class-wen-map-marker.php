@@ -159,12 +159,19 @@ class WEN_Map_Marker {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_menu' );
 		$this->loader->add_action( 'admin_head', $plugin_admin, 'admin_head' );
 		// $this->loader->add_action( 'admin_footer', $plugin_admin, 'tinymce_popup' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'tinymce_button_init' );
+		// $this->loader->add_action( 'admin_init', $plugin_admin, 'tinymce_button_init' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_meta_boxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'meta_box_save' );
 		$this->loader->add_filter( 'plugin_action_links_'.$this->wen_map_marker."/".$this->wen_map_marker.".php", $plugin_admin, 'plugin_settings_link' );
+
+		// Button in toolbar
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'tinymce_button' );
+
+		// Tinymce language
+		$this->loader->add_filter( 'mce_external_languages', $plugin_admin, 'tinymce_external_language' );
+
 
 	}
 
