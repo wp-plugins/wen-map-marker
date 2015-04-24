@@ -3,8 +3,8 @@ Contributors: wenthemes
 Donate link: http://wenthemes.com
 Tags: google, map, custom-post-type, directions, easy map, google map, google map plugin, google maps, latitude, location, longitude, map markers, map plugin, map widget, maps, marker, wp google map, wp google maps, wp maps
 Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 1.1
+Tested up to: 4.1
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
