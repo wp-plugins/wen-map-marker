@@ -55,13 +55,19 @@ class WEN_Map_Marker_Public {
 	}
 
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
+	 * Load CSS.
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function load_css() {
 
-		// wp_enqueue_style( $this->wen_map_marker, plugin_dir_url( __FILE__ ) . 'css/wen-map-marker-public.css', array(), $this->version, 'all' );
+		?>
+    <style>
+      .jMapify img{
+        max-width: none;
+      }
+    </style>
+    <?php
 
 	}
 
@@ -72,12 +78,8 @@ class WEN_Map_Marker_Public {
 	 */
 	public function enqueue_scripts() {
 
-		if(is_admin())
-			return;
 		wp_enqueue_script( 'google-map-api', 'http://maps.google.com/maps/api/js?sensor=false', array( 'jquery' ), $this->version );
 		wp_enqueue_script( 'jquery-jMapify', plugin_dir_url( __FILE__ ) . 'js/jquery.jMapify.js', array( 'jquery' ), $this->version, false );
-
-		// wp_enqueue_script( $this->wen_map_marker, plugin_dir_url( __FILE__ ) . 'js/wen-map-marker-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

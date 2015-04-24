@@ -61,15 +61,17 @@ class WEN_Map_Marker_Admin {
 	 */
 	public function enqueue_styles() {
 
-		$screen = get_current_screen();
-		$wen_map_marker_settings = get_option('wen_map_marker_settings');
-		$wen_map_marker_settings['post_types'][] = 'wen-addons_page_wen-map-marker';
+    $screen = get_current_screen();
 
-		if(!isset($wen_map_marker_settings['post_types']) || empty( $wen_map_marker_settings['post_types'] ))
-			return;
+    $wen_map_marker_settings = get_option('wen_map_marker_settings');
+    $allowed = array(
+      'wen-map-marker_page_wen-map-marker-shortcode-generator'
+    );
+    $allowed = array_merge( $allowed, $wen_map_marker_settings['post_types'] );
 
-		if( is_array($wen_map_marker_settings['post_types']) and !in_array($screen->id,$wen_map_marker_settings['post_types']))
-			return;
+    if ( ! in_array( $screen->id, $allowed ) ) {
+      return;
+    }
 
 		wp_enqueue_style( $this->wen_map_marker, plugin_dir_url( __FILE__ ) . 'css/wen-map-marker-admin.css', array(), $this->version, 'all' );
 
@@ -83,14 +85,16 @@ class WEN_Map_Marker_Admin {
 	public function enqueue_scripts() {
 
 		$screen = get_current_screen();
+
 		$wen_map_marker_settings = get_option('wen_map_marker_settings');
-		$wen_map_marker_settings['post_types'][] = 'wen-addons_page_wen-map-marker';
+    $allowed = array(
+      'wen-map-marker_page_wen-map-marker-shortcode-generator'
+    );
+    $allowed = array_merge( $allowed, $wen_map_marker_settings['post_types'] );
 
-		if(!isset($wen_map_marker_settings['post_types']) || empty( $wen_map_marker_settings['post_types'] ))
-			return;
-
-		if( is_array($wen_map_marker_settings['post_types']) and !in_array($screen->id,$wen_map_marker_settings['post_types']))
-			return;
+    if ( ! in_array( $screen->id, $allowed ) ) {
+      return;
+    }
 
 		wp_enqueue_script( 'google-map-api', 'http://maps.google.com/maps/api/js?sensor=false&libraries=places', array( 'jquery' ), $this->version );
 		wp_enqueue_script( 'jquery-jMapify', plugin_dir_url(__FILE__) . '../public/js/jquery.jMapify.js', array( 'jquery' ), $this->version, false );
@@ -217,17 +221,17 @@ class WEN_Map_Marker_Admin {
 	 */
 	function admin_head() {
 
-		$screen = get_current_screen();
-		$wen_map_marker_settings = get_option('wen_map_marker_settings');
-		$post_types = array();
-		if ( isset( $wen_map_marker_settings['post_types'] ) ) {
-			$post_types = (array)$wen_map_marker_settings['post_types'];
-		}
-		$post_types[] = 'wen-addons_page_wen-map-marker';
+    $screen = get_current_screen();
 
-		if ( ! in_array( $screen->id, $post_types ) ) {
-			return;
-		}
+    $wen_map_marker_settings = get_option('wen_map_marker_settings');
+    $allowed = array(
+      'wen-map-marker_page_wen-map-marker-shortcode-generator'
+    );
+    $allowed = array_merge( $allowed, $wen_map_marker_settings['post_types'] );
+
+    if ( ! in_array( $screen->id, $allowed ) ) {
+      return;
+    }
 
 		$map_options = array( 'showMarker' => false,
 				'showMarkerOnClick' => true,
@@ -286,16 +290,31 @@ class WEN_Map_Marker_Admin {
 	}
 
 	function setup_menu(){
-		if( class_exists('WEN_Addons') ){
-	    add_submenu_page( WEN_Addons::$menu_name, __('WEN Map Marker',"wen-map-marker"), __('WEN Map Marker',"wen-map-marker"), 'manage_options', 'wen-map-marker', array(&$this,'option_page_init') );
-		}else{
-	    add_menu_page( __('WEN Map Marker',"wen-map-marker"), __('WEN Map Marker',"wen-map-marker"), 'manage_options', 'wen-map-marker', array(&$this,'option_page_init') );
-		}
+    add_menu_page(
+      __('WEN Map Marker',"wen-map-marker"),
+      __('WEN Map Marker',"wen-map-marker"),
+      'manage_options',
+      'wen-map-marker',
+      array(&$this,'option_page_init'),
+      'dashicons-location-alt'
+    );
+    add_submenu_page(
+      'wen-map-marker',
+      __('Shortcode Generator',"wen-map-marker"),
+      __('Shortcode Generator',"wen-map-marker"),
+      'manage_options',
+      'wen-map-marker-shortcode-generator',
+      array(&$this,'shortcode_page_init')
+
+    );
     add_action( 'admin_init', array(&$this,'register_settings' ));
 	}
 
-	function option_page_init(){
-	    include(sprintf("%s/partials/wen-map-marker-admin-display.php",dirname(__FILE__)));
+  function option_page_init(){
+      include(sprintf("%s/partials/admin-settings.php",dirname(__FILE__)));
+  }
+	function shortcode_page_init(){
+	    include(sprintf("%s/partials/shortcode-generator.php",dirname(__FILE__)));
 	}
 
 	/**
@@ -303,8 +322,20 @@ class WEN_Map_Marker_Admin {
 	 *
 	 * @since    1.0.0
 	 */
+  function validate_options( $input ){
+    if ( ! isset( $input['post_types'] ) ) {
+      $input['post_types'] = array();
+    }
+    return $input;
+  }
+
+  /**
+   * register our settings
+   *
+   * @since    1.0.0
+   */
 	function register_settings() {
-		register_setting( 'wen-map-marker-settings-group', 'wen_map_marker_settings' );
+		register_setting( 'wen-map-marker-settings-group', 'wen_map_marker_settings', array( $this, 'validate_options' ) );
 
 		add_settings_section(
 			'wen_map_marker_setting_post_type_section',
@@ -315,7 +346,7 @@ class WEN_Map_Marker_Admin {
 
 		add_settings_field(
 			'wen_map_marker_setting_post_types',
-			__( 'Select Post Types', 'wen-map-marker' ),
+			__( 'Enable Map for', 'wen-map-marker' ),
 			array(&$this,'checkbox_field_render'),
 			'wen-map-marker-settings-group',
 			'wen_map_marker_setting_post_type_section'

@@ -16,7 +16,7 @@
  * Plugin Name:       WEN Map Marker
  * Plugin URI:        https://wordpress.org/plugins/wen-map-marker/
  * Description:       An extremely easy way to add Google Map on the WordPress sites.
- * Version:           1.0.1
+ * Version:           1.1
  * Author:            WEN Themes
  * Author URI:        http://wenthemes.com
  * License:           GPL-2.0+
@@ -29,11 +29,12 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+// Define
 define( 'WEN_MAP_MARKER_DIR', rtrim( plugin_dir_path( __FILE__ ), '/' ) );
-
-//  Load WEN Addons
-require_once WEN_MAP_MARKER_DIR . '/wen-addons/wen_addons.php';
-
+define( 'WEN_MAP_MARKER_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
+define( 'WEN_MAP_MARKER_BASENAME', basename( dirname( __FILE__ ) ) );
+define( 'WEN_MAP_MARKER_BASE_FILE', plugin_basename( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.

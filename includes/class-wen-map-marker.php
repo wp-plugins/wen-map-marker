@@ -69,7 +69,7 @@ class WEN_Map_Marker {
 	public function __construct() {
 
 		$this->wen_map_marker = 'wen-map-marker';
-		$this->version = '1.0.0';
+		$this->version = '1.1';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -186,8 +186,11 @@ class WEN_Map_Marker {
 
 		$plugin_public = new WEN_Map_Marker_Public( $this->get_wen_map_marker(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+    $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+    // Load CSS
+		$this->loader->add_action( 'wp_head', $plugin_public, 'load_css', 99 );
+
 		$this->loader->add_filter( 'the_content', $plugin_public, 'append_map' );
 
 		// Enable shortcode in Text widget
