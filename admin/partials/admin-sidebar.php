@@ -28,6 +28,9 @@
              <p>
                <a href="http://wordpress.org/themes/wen-corporate" target="_blank">WEN Corporate</a>
              </p>
+             <p>
+               <a href="http://wordpress.org/themes/wen-associate" target="_blank">WEN Associate</a>
+             </p>
 
             <h4>WordPress Plugins</h4>
               <p>

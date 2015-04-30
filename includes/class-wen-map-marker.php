@@ -72,7 +72,8 @@ class WEN_Map_Marker {
 		$this->version = '1.1';
 
 		$this->load_dependencies();
-		$this->set_locale();
+    $this->set_locale();
+		$this->set_default_options();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -199,6 +200,22 @@ class WEN_Map_Marker {
 
 		add_shortcode( 'WMM', array( $plugin_public, 'map_shortcode' ) );
 	}
+
+  /**
+   * Set default plugin options.
+   *
+   * @since    1.1
+   */
+  public function set_default_options() {
+
+    $default_options = array(
+      'post_types' => array( 'post' ),
+    );
+    if ( ! get_option( 'wen_map_marker_settings' ) ) {
+      update_option( 'wen_map_marker_settings', $default_options );
+    }
+
+  }
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
