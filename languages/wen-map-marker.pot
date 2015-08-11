@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WEN Map Marker\n"
+"POT-Creation-Date: 2015-04-24 14:05+0545\n"
+"PO-Revision-Date: 2015-04-24 14:05+0545\n"
+"Last-Translator: WEN Themes <info@wenthemes.com>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _x;__;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ../../wen-map-marker\n"
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:115
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:294
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:295
+#: ../../wen-map-marker/admin/partials/wen-map-marker-tinymce-plugin-langs.php:12
+msgid "WEN Map Marker"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:132
+msgid "Clear location"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:132
+msgid "Clear marker"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:133
+#: ../../wen-map-marker/admin/partials/shortcode-generator.php:21
+msgid "Find current location"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:133
+#: ../../wen-map-marker/admin/partials/shortcode-generator.php:21
+msgid "Locate User"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:143
+msgid "Show Map"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:152
+msgid "After Content"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:153
+msgid "Before Content"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:154
+msgid "Do not append"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:156
+msgctxt "Map Metabox"
+msgid "OR"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:159
+#, php-format
+msgid "Use Shortcode %s in editor."
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:303
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:304
+msgid "Shortcode Generator"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:342
+msgid "Post Type Options"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:349
+msgid "Enable Map for"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:386
+msgid "Settings"
+msgstr ""
+
+#: ../../wen-map-marker/admin/class-wen-map-marker-admin.php:463
+msgid "Add WEN Map Marker Shortcode"
+msgstr ""
+
+#: ../../wen-map-marker/admin/partials/admin-settings.php:44
+msgid "Save Changes"
+msgstr ""
