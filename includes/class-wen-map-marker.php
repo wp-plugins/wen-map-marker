@@ -69,7 +69,7 @@ class WEN_Map_Marker {
 	public function __construct() {
 
 		$this->wen_map_marker = 'wen-map-marker';
-		$this->version = '1.1';
+		$this->version = '1.2';
 
 		$this->load_dependencies();
     $this->set_locale();

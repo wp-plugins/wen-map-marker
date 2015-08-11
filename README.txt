@@ -1,10 +1,10 @@
 === WEN Map Marker ===
 Contributors: wenthemes
-Donate link: http://wenthemes.com
+Donate link: http://wenthemes.com/item/wordpress-plugins/wen-map-marker/
 Tags: google, map, custom-post-type, directions, easy map, google map, google map plugin, google maps, latitude, location, longitude, map markers, map plugin, map widget, maps, marker, wp google map, wp google maps, wp maps
 Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 1.1
+Tested up to: 4.3
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,6 +57,10 @@ Nice, make a post on the [Support Forum](http://wordpress.org/support/plugin/wen
 2. Map meta box
 
 == Changelog ==
+
+= 1.2 =
+* Compatibility: Compatibility with WordPress 4.3
+* Fix: Minor bug fixes
 
 = 1.1 =
 * Compatibility: Compatibility with WordPress 4.2
